@@ -1,49 +1,44 @@
-#!/usr/bin/env python3
-
-APPROVED_JOBS = [
-    "Admin",
-    "Customer Service",
-    "Human Resources",
-    "ITC",
-    "Production",
-    "Legal",
-    "Finance",
-    "Sales",
-    "General Management",
-    "Research & Development",
-    "Marketing",
-    "Purchasing"
-]
-
-# In person.py
-
 class Person:
-    def __init__(self):
-        self._name = ""
-        self._job = ""
+    APPROVED_JOBS = {
+        "Admin": 21,
+        "Finance": 13,
+        "Customer Service": 11,
+        "Sales": 8,
+        "Human Resources": 8,
+        "General Management": 8,
+        "ITC": 7,
+        "Research and Development": 7,
+        "Production": 6,
+        "Marketing": 5,
+        "Legal": 4,
+        "Purchasing": 2
+    }
 
-    @property
-    def name(self):
+    def __init__(self, name, job):
+        self._name = name
+        self._job = job
+
+    def get_name(self):
+        print("Retrieving name.")
         return self._name
 
-    @name.setter
-    def name(self, value):
-        if isinstance(value, str) and len(value) < 25:
-            self._name = value.title()
+    def set_name(self, name):
+        if isinstance(name, str) and 0 < len(name) < 25:
+            print(f"Setting name to {name}")
+            self._name = name.title()
         else:
             print("Name must be a string under 25 characters.")
 
-    @property
-    def job(self):
+    def get_job(self):
+        print("Retrieving job.")
         return self._job
 
-    @job.setter
-    def job(self, value):
-        if value in ["Admin", "Customer Service", "Human Resources", "ITC", "Production", "Legal", "Finance", "Sales", "General Management", "Research & Development", "Marketing", "Purchasing"]:
-            self._job = value
+    def set_job(self, job):
+        if job in Person.APPROVED_JOBS:
+            print(f"Setting job to {job}")
+            self._job = job
         else:
             print("Job must be in the list of approved jobs.")
 
-my_person = Person()
-my_person.name = "john"
-my_person.job = "Sales"
+    name = property(get_name, set_name)
+    job = property(get_job, set_job)
